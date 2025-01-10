@@ -30,15 +30,15 @@ Popping off of the end is O(n) because:
 
 ### Adding and removing to the beginning
 
-Shifting onto the front is O(1) because:
+Shifting from the front is O(1) because:
 
-1. We set the new node's pointer EQUAL to the pointer of head as its already pointing to the first item
-2. Then we remove a node from a beginning
+1. We set head equal to the first node's next pointer i.e head = head.next.
+2. Then we remove a node from a beginning by setting its next to null
 
 Unifting onto the front is O(1) because:
 
-1. We set head equal to the new first item aka head = head.next since we already have that pointer
-2. We set head equal to the new node
+1. We set the new nodes next property to head.next
+2. We set head to the new node, thereby adding it into the list
 
 ### Inserting
 
@@ -276,4 +276,122 @@ console.log(item);
 > Setting temp.next to null deletes the connection to the entire linked list
 > You'll notice that this.head is not being set to null in the last IF CHECK b/c head will already be null since there is only one item and this.head = this.head.next is run previous which sets head to null inherently
 
-###
+### Get
+
+Searching for a node by index
+Edge Case:
+
+1. We cannot get an index greater than the length and we cannot get anything less than 0
+
+```
+	get(index) {
+		if (index < 0 || index >= this.length) return undefined;
+		let temp = this.head;
+		for (let i = 0; i < index; i++) {
+			temp = temp.next;
+		}
+		return temp;
+	}
+```
+
+> If we always set temp to temp.next then once our desired index is met, we will recieve the pointer to the node at the desired index
+
+### Set
+
+Go to an index and change the value of the item at that index
+
+Hint: Use the get method!
+
+```
+	set(index, value) {
+		let temp = this.get(index);
+		if (temp) {
+			temp.value = value;
+			return true;
+		}
+		return false;
+	}
+```
+
+### Insert
+
+Insert a new node at a particular index
+
+Edge Cases
+
+1. Insert at index of 0 AKA unshift
+2. Insert at the last index AKA POP
+3. If the index does not work aka greater than length or less than 0 return false
+
+```
+	insert(index, value) {
+		// we retun b/c we want to return what these methods return AND stop running code
+		if (index === 0) return this.unshift(value);
+		if (index === this.length) return this.push(value);
+		if (index < 0 || index > this.length) return false;
+		const newNode = new Node(value);
+		const temp = this.get(index - 1);
+		newNode.next = temp.next;
+		this.length++;
+		temp.next = newNode;
+		return true;
+	}
+
+```
+
+![alt text](image-7.png)
+
+### Remove
+
+Remove a node at a specific index
+
+Edge Cases:
+
+1. At a bad index
+
+```
+	remove(index) {
+		if (index === 0) return this.shift();
+		if (index === this.length - 1) return this.pop();
+		if (index < 0 || index >= this.length) return undefined;
+		const pre = this.get(index - 1);
+		const temp = pre.next;
+		pre.next = temp.next;
+		temp.next = null;
+		this.length--;
+		return temp;
+	}
+
+```
+
+![alt text](image-8.png)
+
+### Reverse
+
+Reverse the linked list
+
+```
+reverse() {
+		let temp = this.head;
+		this.head = this.tail;
+		this.tail = temp;
+		let next = temp.next;
+		let prev = null;
+		for (let i = 0; i < this.length; i++) {
+			next = temp.next;
+			temp.next = prev;
+			prev = temp;
+			temp = next;
+		}
+		return this;
+	}
+
+
+```
+
+> We need three variables, temp, previous, and next.
+> head and tail must be swapped - this is the easy part!
+> We do this by setting head to tail and tail to temp
+> then we slowly crawl through the linked list and move all three variables to the following pointers
+
+![alt text](image-9.png)
