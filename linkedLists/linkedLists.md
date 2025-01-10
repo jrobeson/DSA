@@ -396,23 +396,9 @@ reverse() {
 
 ![alt text](image-9.png)
 
-## Floyd's Cycle-Finding Algorithm
+## Floyd's Cycle-Finding Algorithm - tortoise and hare algorithm
 
 Known as the tortoise and hare algorithm, is a two-pointer technique used to detect cycles in a sequence of values, most commonly in a linked list. It efficiently determines whether a cycle exists and, in some cases, identifies the starting node of the cycle.
-
-```
-	hasLoop() {
-		let slow = this.head;
-		let fast = this.head;
-		while (fast !== null && fast.next !== null) {
-			slow = slow.next;
-			fast = fast.next.next;
-			if (fast === slow) return true;
-		}
-		return false;
-	}
-
-```
 
 Steps:
 
@@ -432,3 +418,63 @@ Steps:
 - Reset the tortoise pointer to the head of the list.
 - Move both the tortoise and hare one step at a time (tortoise = tortoise.next, hare = hare.next) until they meet again.
 - The node where they meet is the starting node of the cycle.
+
+### Detecting a loop
+
+```
+	hasLoop() {
+		let slow = this.head;
+		let fast = this.head;
+		while (fast !== null && fast.next !== null) {
+			slow = slow.next;
+			fast = fast.next.next;
+			if (fast === slow) return true;
+		}
+		return false;
+	}
+
+```
+
+### Finding the Kth node from end
+
+> ![alt text](image-10.png)
+
+```
+	findKthFromEnd(k) {
+		if (k <= 0) return null;
+		let slow = this.head;
+		let fast = this.head;
+		for (let i = 0; i < k; ++i) {
+			if (!fast) return null;
+			fast = fast.next;
+		}
+		while (fast !== null && fast.next !== null) {
+			slow = slow.next;
+			fast = fast.next;
+		}
+		return slow;
+	}
+```
+
+> if using pre-increment on i
+
+```
+	findKthFromEnd(k) {
+		if (k <= 0) return null;
+		let slow = this.head;
+		let fast = this.head;
+		for (let i = 0; i < k - 1; i++) {
+			if (!fast) return null;
+			fast = fast.next;
+		}
+		while (fast !== null && fast.next !== null) {
+			slow = slow.next;
+			fast = fast.next;
+		}
+		return slow;
+	}
+```
+
+> if using post-increment on i
+
+
