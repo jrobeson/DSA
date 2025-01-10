@@ -391,4 +391,7 @@ reverse() {
 
 > We need three variables, temp, previous, and next.
 > head and tail must be swapped - this is the easy part!
+> We do this by setting head to tail and tail to temp
 > then we slowly crawl through the linked list and move all three variables to the following pointers
+
+![alt text](image-9.png)
