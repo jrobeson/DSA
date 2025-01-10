@@ -30,15 +30,15 @@ Popping off of the end is O(n) because:
 
 ### Adding and removing to the beginning
 
-Shifting onto the front is O(1) because:
+Shifting from the front is O(1) because:
 
-1. We set the new node's pointer EQUAL to the pointer of head as its already pointing to the first item
-2. Then we remove a node from a beginning
+1. We set head equal to the first node's next pointer i.e head = head.next.
+2. Then we remove a node from a beginning by setting its next to null
 
 Unifting onto the front is O(1) because:
 
-1. We set head equal to the new first item aka head = head.next since we already have that pointer
-2. We set head equal to the new node
+1. We set the new nodes next property to head.next
+2. We set head to the new node, thereby adding it into the list
 
 ### Inserting
 
@@ -276,4 +276,39 @@ console.log(item);
 > Setting temp.next to null deletes the connection to the entire linked list
 > You'll notice that this.head is not being set to null in the last IF CHECK b/c head will already be null since there is only one item and this.head = this.head.next is run previous which sets head to null inherently
 
-###
+### Get
+
+Searching for a node by index
+Edge Case:
+
+1. We cannot get an index greater than the length and we cannot get anything less than 0
+
+```
+	get(index) {
+		if (index < 0 || index >= this.length) return undefined;
+		let temp = this.head;
+		for (let i = 0; i < index; i++) {
+			temp = temp.next;
+		}
+		return temp;
+	}
+```
+
+> If we always set temp to temp.next then once our desired index is met, we will recieve the pointer to the node at the desired index
+
+### Set
+
+Go to an index and change the value of the item at that index
+
+Hint: Use the get method!
+
+```
+	set(index, value) {
+		let temp = this.get(index);
+		if (temp) {
+			temp.value = value;
+			return true;
+		}
+		return false;
+	}
+```
