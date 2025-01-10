@@ -395,3 +395,40 @@ reverse() {
 > then we slowly crawl through the linked list and move all three variables to the following pointers
 
 ![alt text](image-9.png)
+
+## Floyd's Cycle-Finding Algorithm
+
+Known as the tortoise and hare algorithm, is a two-pointer technique used to detect cycles in a sequence of values, most commonly in a linked list. It efficiently determines whether a cycle exists and, in some cases, identifies the starting node of the cycle.
+
+```
+	hasLoop() {
+		let slow = this.head;
+		let fast = this.head;
+		while (fast !== null && fast.next !== null) {
+			slow = slow.next;
+			fast = fast.next.next;
+			if (fast === slow) return true;
+		}
+		return false;
+	}
+
+```
+
+Steps:
+
+1. Initialize:
+
+- Place both the tortoise and hare at the head of the linked list.
+
+2. Phase 1: Detect Cycle:
+
+- Move the tortoise one step at a time (tortoise = tortoise.next).
+- Move the hare two steps at a time (hare = hare.next.next).
+- If the tortoise and hare meet, a cycle exists.
+- If the hare reaches the end (null), there is no cycle.
+
+3. Phase 2: Find the Start of the Cycle (if a cycle exists):
+
+- Reset the tortoise pointer to the head of the list.
+- Move both the tortoise and hare one step at a time (tortoise = tortoise.next, hare = hare.next) until they meet again.
+- The node where they meet is the starting node of the cycle.
