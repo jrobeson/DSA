@@ -324,17 +324,44 @@ Edge Cases
 3. If the index does not work aka greater than length or less than 0 return false
 
 ```
-insert(index, value) {
+	insert(index, value) {
 		// we retun b/c we want to return what these methods return AND stop running code
 		if (index === 0) return this.unshift(value);
 		if (index === this.length) return this.push(value);
 		if (index < 0 || index > this.length) return false;
 		const newNode = new Node(value);
 		const temp = this.get(index - 1);
-		newNode = temp.next;
+		newNode.next = temp.next;
 		this.length++;
 		temp.next = newNode;
 		return true;
 	}
 
 ```
+
+![alt text](image-7.png)
+
+### Remove
+
+Remove a node at a specific index
+
+Edge Cases:
+
+1. At a bad index
+
+```
+	remove(index) {
+		if (index === 0) return this.shift();
+		if (index === this.length - 1) return this.pop();
+		if (index < 0 || index >= this.length) return undefined;
+		const pre = this.get(index - 1);
+		const temp = pre.next;
+		pre.next = temp.next;
+		temp.next = null;
+		this.length--;
+		return temp;
+	}
+
+```
+
+![alt text](image-8.png)
