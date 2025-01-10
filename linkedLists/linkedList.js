@@ -85,12 +85,23 @@ class LinkedList {
 		}
 		return false;
 	}
-	insert(index, value) {}
+	insert(index, value) {
+		// we retun b/c we want to return what these methods return AND stop running code
+		if (index === 0) return this.unshift(value);
+		if (index === this.length) return this.push(value);
+		if (index < 0 || index > this.length) return false;
+		const newNode = new Node(value);
+		const temp = this.get(index - 1);
+		newNode = temp.next;
+		this.length++;
+		temp.next = newNode;
+		return true;
+	}
+	remove() {}
+	reverse() {}
 }
 
 let myLinkedList = new LinkedList(11);
 myLinkedList.push(3);
 myLinkedList.push(23);
 myLinkedList.push(7);
-myLinkedList.set(1, 4);
-console.log(myLinkedList.get(1));

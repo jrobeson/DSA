@@ -312,3 +312,29 @@ Hint: Use the get method!
 		return false;
 	}
 ```
+
+### Insert
+
+Insert a new node at a particular index
+
+Edge Cases
+
+1. Insert at index of 0 AKA unshift
+2. Insert at the last index AKA POP
+3. If the index does not work aka greater than length or less than 0 return false
+
+```
+insert(index, value) {
+		// we retun b/c we want to return what these methods return AND stop running code
+		if (index === 0) return this.unshift(value);
+		if (index === this.length) return this.push(value);
+		if (index < 0 || index > this.length) return false;
+		const newNode = new Node(value);
+		const temp = this.get(index - 1);
+		newNode = temp.next;
+		this.length++;
+		temp.next = newNode;
+		return true;
+	}
+
+```
