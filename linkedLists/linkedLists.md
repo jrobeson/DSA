@@ -365,3 +365,30 @@ Edge Cases:
 ```
 
 ![alt text](image-8.png)
+
+### Reverse
+
+Reverse the linked list
+
+```
+reverse() {
+		let temp = this.head;
+		this.head = this.tail;
+		this.tail = temp;
+		let next = temp.next;
+		let prev = null;
+		for (let i = 0; i < this.length; i++) {
+			next = temp.next;
+			temp.next = prev;
+			prev = temp;
+			temp = next;
+		}
+		return this;
+	}
+
+
+```
+
+> We need three variables, temp, previous, and next.
+> head and tail must be swapped - this is the easy part!
+> then we slowly crawl through the linked list and move all three variables to the following pointers
